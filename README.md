@@ -1,1 +1,1 @@
-This is exercise 1a of CSC 307.
+This is exercise 1b of CSC 307.
