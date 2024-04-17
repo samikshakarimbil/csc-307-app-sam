@@ -61,15 +61,20 @@ app.get("/users/:id", (req, res) => {
     }
 });
 
+function generateID() {
+  return Math.random().toString(16).substr(2, 6);
+}
+
 const addUser = (user) => {
-    users["users_list"].push(user);
-    return user;
+  user.id = generateID();
+  users["users_list"].push(user);
+  return user;
 };
   
 app.post("/users", (req, res) => {
-    const userToAdd = req.body;
-    addUser(userToAdd);
-    res.status(201).send("User added successfully");
+  const userToAdd = req.body;
+  addUser(userToAdd);
+  res.status(201).send("User added successfully");
 });
 
 const delUser = (id) => {
