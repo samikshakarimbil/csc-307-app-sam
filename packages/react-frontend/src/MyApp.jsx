@@ -40,8 +40,14 @@ function MyApp() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(person),
+    })
+    .then((response) => {
+      if (response.status === 201) {
+        return response.json();
+      } else {
+        throw new Error("Failed to insert user");
+      }
     });
-
     return promise;
   }
 
