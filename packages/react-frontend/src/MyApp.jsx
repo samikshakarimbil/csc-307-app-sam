@@ -15,7 +15,7 @@ function MyApp() {
   
   function updateList(person) { 
     postUser(person)
-      .then(() => setCharacters([...characters, person]))
+      .then((data) => setCharacters([...characters, data]))
       .catch((error) => {
         console.log(error);
       })
@@ -40,12 +40,17 @@ function MyApp() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(person),
-  })
+    })
     .then((response) => {
-      if (response.status != 201) {
+      if (response.status === 201) {
+        return response.json()
+      } else {
         throw new Error("Failed to insert user");
       }
-    });
+      
+
+    })
+    .catch(e => {throw new Error("dumbass")});
     return promise;
   }
 
