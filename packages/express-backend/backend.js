@@ -73,22 +73,22 @@ const addUser = (user) => {
   
 app.post("/users", (req, res) => {
   const userToAdd = req.body;
-  const u = addUser(userToAdd);
-  res.status(201).send(u);
+  const user = addUser(userToAdd);
+  res.status(201).send(user);
 });
 
 const delUser = (id) => {
     users["users_list"] = users["users_list"].filter((user) => user.id != id);
 };
 
-app.delete("users/:id", (req, res) => {
-    const id = req.params.id;
-    if (id != undefined) {
+app.delete("/users/:id", (req, res) => {
+    const id = req.params["id"];
+    if (id !== undefined) {
         delUser(id);
-        res.send();
+        res.status(204).send();
     }
     else {
-        res.status(404).send("User not found");
+        res.status(404).send("Resource not found");
     }
 });
 
