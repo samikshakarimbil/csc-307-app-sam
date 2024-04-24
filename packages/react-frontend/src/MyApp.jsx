@@ -6,19 +6,13 @@ import Form from "./Form";
 function MyApp() {
   const [characters, setCharacters] = useState([]);
 
-  // function removeOneCharacter(index) {
-  //   const updated = characters.filter((character, i) => {
-  //     return i !== index;
-  //   });
-  //   setCharacters(updated);
-  // }
   function removeOneCharacter(userId) {
     fetch(`http://localhost:8000/users/${userId}`, {
         method: 'DELETE'
     })
     .then(response => {
         if (response.status === 204) {
-          const updated = characters.filter(character=> character.id !== userId);
+          const updated = characters.filter(character=> character._id !== userId);
           setCharacters(updated);
         } else if (response.status === 404) {
             console.error('Resource not found');
@@ -50,7 +44,7 @@ function MyApp() {
       .then((res) => res.json())
       .then((json) => setCharacters(json["users_list"]))
       .catch((error) => { console.log(error); });
-  }, [] );
+  }, [characters] );
 
   function postUser(person) {
     const promise = fetch("Http://localhost:8000/users", {
